@@ -1,25 +1,17 @@
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Dashboard } from './components/Dashboard';
-
-function AppContent() {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="w-12 h-12 border-4 border-slate-900 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  return user ? <Dashboard /> : <Login />;
-}
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
     </AuthProvider>
   );
 }

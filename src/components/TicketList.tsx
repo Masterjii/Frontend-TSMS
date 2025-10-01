@@ -40,14 +40,18 @@ export const TicketList: React.FC<TicketListProps> = ({
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [filter, setFilter] = useState<'all' | Ticket['status']>('all');
 
+
   useEffect(() => {
+    const loadTickets = async () => {
+      try {
+        const allTickets = await ticketService.getTickets();
+        setTickets(Array.isArray(allTickets) ? allTickets : []);
+      } catch (err) {
+        setTickets([]);
+      }
+    };
     loadTickets();
   }, [refreshTrigger]);
-
-  const loadTickets = () => {
-    const allTickets = ticketService.getTickets();
-    setTickets(allTickets);
-  };
 
   const filteredTickets = tickets.filter(
     ticket => filter === 'all' || ticket.status === filter
