@@ -44,7 +44,7 @@ export const TicketList: React.FC<TicketListProps> = ({
   useEffect(() => {
     const loadTickets = async () => {
       try {
-        const allTickets = await ticketService.getTickets();
+        const allTickets = await ticketService.listTickets();
         setTickets(Array.isArray(allTickets) ? allTickets : []);
       } catch (err) {
         setTickets([]);

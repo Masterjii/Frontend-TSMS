@@ -17,6 +17,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log('[AuthContext] window.location.search:', location?.search);
     initializeAuth();
   }, []);
 
@@ -97,7 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: 'balramkushram120@gmail.com',
         role: 'admin'
       };
-      const mockToken = 'mock-jwt-token-' + Date.now();
+      const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYzgxNmQzOC1lY2QwLTQzY2UtYjZlZS1jY2I3NTAzODc1ZjEiLCJyb2xlIjoiYWdlbnQiLCJlbWFpbCI6ImIwMjY1MzU4MUBnbWFpbC5jb20iLCJpYXQiOjE3NTk2NTEzMDAsImV4cCI6MTc1OTY4MDEwMH0.97581lVE4xDeFsWsU_DXO6jZOyvRRl8e0pL3Zg2YM3I';
       
       setToken(mockToken);
       setUser(mockUser);
